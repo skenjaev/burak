@@ -7,7 +7,7 @@ Ushbu function bizga arrayning tarkibidagi birinchi eng katta qiymatning indeksi
 MASALAN: getHighestIndex([5, 21, 12, 21 ,8]); return qiladi 1 */
 
 
-function getHighestIndex(arr) {
+function getHighestIndex(arr: number[]): number {
     // Agar array bo'sh bo'lsa, -1 qaytaramiz
     if (arr.length === 0) {
         return -1;
@@ -28,9 +28,8 @@ function getHighestIndex(arr) {
     return maxIndex;  // Eng katta qiymatning birinchi indeksini qaytaramiz
 }
 
-
-console.log(getHighestIndex([5, 21, 12, 21, 8])); // Natija: 1
-console.log(getHighestIndex([10, 5, 15, 3]));     // Natija: 2
-console.log(getHighestIndex([1, 1, 1, 1]));       // Natija: 0
-console.log(getHighestIndex([100]));              // Natija: 0
-console.log(getHighestIndex([]));                 // Natija: -1
+console.log(getHighestIndex([5, 21, 12, 21, 8])); 
+console.log(getHighestIndex([10, 5, 15, 3]));     
+console.log(getHighestIndex([1, 1, 1, 1]));       
+console.log(getHighestIndex([100]));             
+console.log(getHighestIndex([]));                 
