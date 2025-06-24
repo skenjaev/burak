@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 
 // Faylning to'liq yo'lini ko'rsatish
-dotenv.config({ path: "./src/.env" });
+dotenv.config();
 
 import mongoose from "mongoose";
 import app from "./app";
