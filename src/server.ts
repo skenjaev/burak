@@ -1,9 +1,8 @@
-console.log("EXUCUTED");
+import dotenv from "dotenv";
 
-import moment from "moment";
+// Faylning to'liq yo'lini ko'rsatish
+dotenv.config({ path: "./src/.env" });
 
-const currentTime = moment().format("YYYY-MM-DD");
-console.log(currentTime);
+console.log("PORT:", process.env.PORT);
 
-const person:string = "Martin";
-const count: number = 100;
+console.log("MONGO_URL:", process.env.MONGO_URL);
