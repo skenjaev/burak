@@ -1,22 +1,26 @@
-/*H-TASK: shunday function tuzing, u integerlardan iborat arrayni argument sifatida qabul qilib, faqat positive qiymatlarni olib string holatda return qilsinMASALAN: getPositive([1, -4, 2]) return qiladi "12"*/
+/*
+H2-TASK: Shunday function tuzing, unga string argument pass bolsin.
+ Function ushbu agrumentdagi digitlarni yangi stringda return qilsinMASALAN: getDigits("m14i1t") return qiladi "141" */
 
-// Faqat musbat sonlarni olib string qaytaruvchi funksiya
-function getPositive(arr: number[]): string { // 'arr' uchun tip va return tipi qo'shildi
-    let result = "";  // Bo'sh string yaratamiz
+ // H2-TASK: String ichidagi raqamlarni ajratib oluvchi function
+
+ function getDennis(str: string): string {
+    let result = "";
     
-    // Array elementlarini birma-bir tekshiramiz
-    for (let i = 0; i < arr.length; i++) {
-        // Agar element musbat bo'lsa
-        if (arr[i] > 0) {
-            result = result + arr[i];  // Stringga qo'shamiz
+    for (let i = 0; i < str.length; i++) {
+        if (str[i] >= '0' && str[i] <= '9') {
+            result += str[i];
         }
     }
     
-    return result;  // Natijani qaytaramiz
-}
+    return result;
+};
 
-// Test qilish uchun misollar:
-console.log(getPositive([1, -4, 2]));     
-console.log(getPositive([3, -1, 5, -2])); 
-console.log(getPositive([-1, -2, -3]));   
-console.log(getPositive([7, 8, 9]));
+
+console.log("JAVOB:");
+console.log("================");
+console.log();
+
+console.log('getDennis("m14i1t") natijasi:', getDennis("m14i1t"));
+console.log('Javobi: "141"');
+console.log();
