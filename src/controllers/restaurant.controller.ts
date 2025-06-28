@@ -7,7 +7,8 @@ restaurantController.goHome = (req: Request, res: Response) =>{
     try{  
         // try asosan server tarafida xatoliklarni tutish uchun ishlatiladi, asosan asyncron kodlar yozganda ishlatiladi.
         console.log("goHome");
-        res.send("Home Page");
+        res.send("Home Page"); 
+        // response turlari: send, json, render, redirect, end bo'lishi mumkin.
     }catch (err){
         // agar xatolik bo'lsa, CATCH-ga bu yerga tushadi va xatolik haqida ma'lumot beradi.
         console.log("Error, goHome:", err);
@@ -31,5 +32,26 @@ restaurantController.getSignup = (req: Request, res: Response) =>{
         console.log("Error, getSignup:", err);
     }
 }; 
+
+restaurantController.processLogin = (req: Request, res: Response) =>{
+    try{
+        console.log("processLogin");
+        res.send("DONE");
+
+    }catch (err){
+        console.log("Error, processLogin:", err);
+    }
+};
+
+
+restaurantController.processSignup = (req: Request, res: Response) =>{
+    try{
+        console.log("processSignup");
+        res.send("DONE");
+
+    }catch (err){
+        console.log("Error, processSignup:", err);
+    }
+};
 
 export default restaurantController;
