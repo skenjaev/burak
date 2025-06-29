@@ -12,3 +12,9 @@ goHome          // ✅ camelCase (funksiya - bosh sahifaga qaytish)
 MemberService   // ✅ PascalCase (klass - foydalanuvchilar servisi)  
 button_style    // ✅ snake_case (CSS - tugma uchun stil)  
 project-utils   // ✅ kebab-case (papka - yordamchi vositalar)  */
+
+/*API turlari:
+Traditional API
+Rest API
+GraphQL API
+*/

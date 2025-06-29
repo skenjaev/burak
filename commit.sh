@@ -1,3 +1,3 @@
 git add .
-git commit -m "feat: [38-39] Router, Controllerlar va Member - Schema Model & MITASK-H2"
+git commit -m "feat: [40-41] Loyihamizning standart va Member - Service Model (admin signup)"
 git push origin develop
