@@ -1,5 +1,5 @@
-import MemberModel from "../schema/Member.model";; // MemberModel default eksport qilingan
-import { MemberInput, Member } from "../libs/types/member"; // MemberInput va Member to'g'ri import qilingan
+import MemberModel from "../schema/Member.model"; // MemberModel default eksport qilingan
+import { MemberInput, Member, LoginInput } from "../libs/types/member"; // MemberInput va Member to'g'ri import qilingan
 import Errors, { HttpCode, Message } from "../libs/Errors"; // Xatoliklarni boshqarish uchun import qilingan
 import { memberType } from "../libs/types/enums/member.enum"; // MemberType to'g'ri import qilingan
 
@@ -11,22 +11,40 @@ class MemberService {
     }
 
     public async processSignup(input: MemberInput): Promise<Member> {
-        // const result = await this.memberModel.create(input); // Yangi a'zo yaratish
-      const exist = await this.memberModel.findOne({memberType: memberType.RESTAURANT}).exec(); // Telefon raqam bo'yicha a'zoni tekshirish
-      
-      console.log("exist:", exist);
+        const exist = await this.memberModel.findOne({ memberType: memberType.RESTAURANT }).exec(); // Telefon raqam bo'yicha a'zoni tekshirish
 
-      if(exist) throw new Errors(HttpCode.BAD_REQUEST, Message.CREATE_FAILED);
-        
-      try{
-        const tempResult = new this.memberModel(input); // Yangi a'zo yaratish uchun modeldan nusxa olish
-        const result = await tempResult.save(); // Yangi a'zo ma'lumotlarini saqlash
-        result.memberPassword = ""; // Parolni javobdan olib tashlash
-        return result;  
-      }  catch (err) {
-        throw new Errors(HttpCode.BAD_REQUEST, Message.CREATE_FAILED);
-      }
-        
+        console.log("exist:", exist);
+
+        if (exist) throw new Errors(HttpCode.BAD_REQUEST, Message.CREATE_FAILED);
+
+        try {
+            const tempResult = new this.memberModel(input); // Yangi a'zo yaratish uchun modeldan nusxa olish
+            const result = await tempResult.save(); // Yangi a'zo ma'lumotlarini saqlash
+            result.memberPassword = ""; // Parolni javobdan olib tashlash
+            return result;
+        } catch (err) {
+            throw new Errors(HttpCode.BAD_REQUEST, Message.CREATE_FAILED);
+        }
+    }
+
+    public async processLogin(input: LoginInput): Promise<Member> {
+        const member = await this.memberModel
+            .findOne(
+                { memberNick: input.memberNick },
+                { memberNick: 1, memberPassword: 1 } // A'zoni login ma'lumotlari bilan topish
+            )
+            .exec(); // Telefon raqam bo'yicha a'zoni tekshirish
+
+        if (!member) throw new Errors(HttpCode.NOT_FOUND, Message.NO_MEMBER_NICK);
+
+        const isMatch = input.memberPassword === member.memberPassword; // Parolni tekshirish
+        console.log("isMatch:", isMatch);
+
+        if (!isMatch) {
+            throw new Errors(HttpCode.UNAUTHORIZED, Message.WRONG_PASSWORD);
+        }
+
+        return await this.memberModel.findById(member._id).exec(); // A'zoni ID bo'yicha topish
     }
 }
 

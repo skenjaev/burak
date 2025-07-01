@@ -14,12 +14,7 @@ export enum HttpCode {
     INTERNAL_SERVER_ERROR = 500, // - Server xatosi
   }
 
-  /*quydagi "export enum Message" kod xato xabarlarini enum sifatida e'lon qiladi.
-Vazifasi:
 
-Ilovada takrorlanuvchi xabarlarni bir joyda saqlash
-Xabarlarni o'zgartirish va boshqarishni osonlashtirish
-Kod yozishda xatolarni kamaytirish */
 
 
 
@@ -27,15 +22,15 @@ export enum Message {
     SOMETHING_WENT_WRONG = "Something went wrong!",  // Umumiy xato xabari
     NO_DATA_FOUND = "No data is found!",             // Ma'lumot topilmadi
     CREATE_FAILED = "Create is failed!",             // Yaratish muvaffaqiyatsiz tugadi
-    UPDATE_FAILED = "Update is failed!",            // Yangilash muvaffaqiyatsiz tugadi
+    UPDATE_FAILED = "Update is failed!",  
+    
+    USED_NICK_PHONE = " you are inserting already used nick or phone!", // Ushbu nick yoki telefon raqami allaqachon ishlatilgan
+    NO_MEMBER_NICK =  " no member with that member  nick!", // Ushbu nick bilan a'zo topilmadi
+    WRONG_PASSWORD = "Wrong password, please try again!", // Noto'g'ri parol, iltimos qayta urinib ko'ring
   }
 
   
-  //quydagi "class Errors" kodi xato holatlarini ifodalovchi klassni e'lon qiladi.
-// Vazifasi:
-// HTTP holat kodlari va xabarlarini bir joyda saqlash
-// Xatoliklarni boshqarish va qayta ishlashni osonlashtirish
-// Xatoliklar haqida aniq ma'lumot berish
+  
   
   class Errors extends Error {  
     public code: HttpCode;
