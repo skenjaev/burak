@@ -12,6 +12,7 @@ restaurantController.goHome = (req: Request, res: Response) => {
         res.send("Home Page");
     } catch (err) {
         console.log("Error, goHome:", err);
+        res.send(err); // Xatolikni qaytarish
     }
 };
 
@@ -21,6 +22,7 @@ restaurantController.getLogin = (req: Request, res: Response) => {
         res.send("Login Page");
     } catch (err) {
         console.log("Error, getLogin:", err);
+        res.send(err); // Xatolikni qaytarish
     }
 };
 
@@ -30,6 +32,7 @@ restaurantController.getSignup = (req: Request, res: Response) => {
         res.send("Signup Page");
     } catch (err) {
         console.log("Error, getSignup:", err);
+        res.send(err); // Xatolikni qaytarish
     }
 };
 
@@ -45,7 +48,7 @@ restaurantController.processLogin = async (req: Request, res: Response) => {
         res.send(result); // "result" o'rniga haqiqiy natija qaytarildi
     } catch (err) {
         console.log("Error, processLogin:", err);
-        res.send(err);
+        res.send(err); // Xatolikni qaytarish
     }
 };
 
@@ -62,6 +65,7 @@ restaurantController.processSignup = async (req: Request, res: Response) => {
         res.send(result); // "result" o'rniga haqiqiy natija qaytarildi
     } catch (err) {
         console.log("Error, processSignup:", err);
+        res.send(err); // Xatolikni qaytarish
     }
 };
 

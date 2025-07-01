@@ -2,7 +2,7 @@ import MemberModel from "../schema/Member.model"; // MemberModel default eksport
 import { MemberInput, Member, LoginInput } from "../libs/types/member"; // MemberInput va Member to'g'ri import qilingan
 import Errors, { HttpCode, Message } from "../libs/Errors"; // Xatoliklarni boshqarish uchun import qilingan
 import { memberType } from "../libs/types/enums/member.enum"; // MemberType to'g'ri import qilingan
-
+import * as bcrypt from "bcryptjs"; // Parolni shifrlash uchun bcrypt kutubxonasi import qilingan
 class MemberService {
     private readonly memberModel;
 
@@ -16,6 +16,11 @@ class MemberService {
         console.log("exist:", exist);
 
         if (exist) throw new Errors(HttpCode.BAD_REQUEST, Message.CREATE_FAILED);
+
+        console.log("before:",input. memberPassword);
+        const salt = await bcrypt.genSalt(); // Parolni shifrlash uchun tuz yaratish.
+        input.memberPassword = await bcrypt.hash(input.memberPassword, salt); // Parolni shifrlash
+        console.log("after:", input.memberPassword);
 
         try {
             const tempResult = new this.memberModel(input); // Yangi a'zo yaratish uchun modeldan nusxa olish
@@ -37,8 +42,12 @@ class MemberService {
 
         if (!member) throw new Errors(HttpCode.NOT_FOUND, Message.NO_MEMBER_NICK);
 
-        const isMatch = input.memberPassword === member.memberPassword; // Parolni tekshirish
-        console.log("isMatch:", isMatch);
+        const isMatch = await bcrypt.compare(
+            input.memberPassword,
+            member.memberPassword); // Parolni tekshirish
+        // const isMatch = input.memberPassword === member.memberPassword; // Parolni tekshirish
+       
+
 
         if (!isMatch) {
             throw new Errors(HttpCode.UNAUTHORIZED, Message.WRONG_PASSWORD);
