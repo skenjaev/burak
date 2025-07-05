@@ -14,33 +14,40 @@ button_style    // ✅ snake_case (CSS - tugma uchun stil)
 project-utils   // ✅ kebab-case (papka - yordamchi vositalar)  */
 
 
-
+/*
+ Traditinal API
+ Rest API
+ GraphQL API
+*/
 
 /*
-TASK J:
+Traditinal frontend development => BSSR => EJS
+Modern frontend development => SPA => React
+*/
 
-Shunday function tuzing, u string qabul qilsin.
-Va string ichidagi eng uzun so'zni qaytarsin.
 
-MASALAN: findLongestWord("I came from Uzbekistan!"); return "Uzbekistan!"
- */
 
-function findLongestWord(sentence: string): string {
-    // Har bir so'zni ajratish
-    const words = sentence.split(' ');
-    
-    // Eng uzun so'zni topish
-    let longestWord = '';
-    for (const word of words) {
-        if (word.length > longestWord.length) {
-            longestWord = word;
+/*TASK K:
+
+Berilayotgan parametr tarkibida nechta unli harf bor
+ekanligini aniqlovchi function tuzing
+
+MASALAN: countVowels("string"); return 1 */
+
+function countVowels(str: string): number {
+    const vowels = 'aeiouAEIOU';
+    let count = 0;
+
+    for (const char of str) {
+        if (vowels.includes(char)) {
+            count++;
         }
     }
-    
-    return longestWord;
-  };
 
+    return count;
+};
 
+// Test
 
-console.log(findLongestWord("I came from Uzbekistan!"));
-console.log(findLongestWord("Hello world!")); 
+console.log(countVowels("string")); 
+console.log(countVowels("hello world")); 

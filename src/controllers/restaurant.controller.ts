@@ -5,6 +5,9 @@ import { MemberInput } from "../libs/types/member";
 import { memberType } from "../libs/types/enums/member.enum"; // memberType ni to'g'ri import qilish
 import { LoginInput } from "../libs/types/member";
 
+
+const memberService = new MemberService();
+
 const restaurantController: T = {};
 restaurantController.goHome = (req: Request, res: Response) => {
     try {
@@ -12,16 +15,6 @@ restaurantController.goHome = (req: Request, res: Response) => {
         res.send("Home Page");
     } catch (err) {
         console.log("Error, goHome:", err);
-        res.send(err); // Xatolikni qaytarish
-    }
-};
-
-restaurantController.getLogin = (req: Request, res: Response) => {
-    try {
-        console.log("getLogin");
-        res.send("Login Page");
-    } catch (err) {
-        console.log("Error, getLogin:", err);
         res.send(err); // Xatolikni qaytarish
     }
 };
@@ -36,21 +29,17 @@ restaurantController.getSignup = (req: Request, res: Response) => {
     }
 };
 
-restaurantController.processLogin = async (req: Request, res: Response) => {
+restaurantController.getLogin = (req: Request, res: Response) => {
     try {
-        console.log("processLogin");
-        console.log("body:", req.body);
-        const input: LoginInput = req.body;     
-
-        const memberService = new MemberService();
-        const result = await memberService.processLogin(input); // processLogin metodini chaqirish
-
-        res.send(result); // "result" o'rniga haqiqiy natija qaytarildi
+        console.log("getLogin");
+        res.send("Login Page");
     } catch (err) {
-        console.log("Error, processLogin:", err);
+        console.log("Error, getLogin:", err);
         res.send(err); // Xatolikni qaytarish
     }
 };
+
+
 
 restaurantController.processSignup = async (req: Request, res: Response) => {
     try {
@@ -59,14 +48,33 @@ restaurantController.processSignup = async (req: Request, res: Response) => {
 
         const newMember: MemberInput = req.body; // Sintaksis xatosi tuzatildi
         newMember.memberType = memberType.RESTAURANT; // memberType RESTAURANT qilib belgilandi
-
-        const memberService = new MemberService();
         const result = await memberService.processSignup(newMember); // Sintaksis xatosi tuzatildi
+    // TODO: SESSION AUTHENTICATION;
         res.send(result); // "result" o'rniga haqiqiy natija qaytarildi
     } catch (err) {
         console.log("Error, processSignup:", err);
         res.send(err); // Xatolikni qaytarish
     }
 };
+
+
+restaurantController.processLogin = async (req: Request, res: Response) => {
+    try {
+        console.log("processLogin");
+
+        console.log("body:", req.body);
+        const input: LoginInput = req.body;     
+        const result = await memberService.processLogin(input); // processLogin metodini chaqirish
+         
+        // TODO: SESSION AUTHENTICATION;
+
+        res.send(result); // "result" o'rniga haqiqiy natija qaytarildi
+    } catch (err) {
+        console.log("Error, processLogin:", err);
+        res.send(err); // Xatolikni qaytarish
+    }
+};
+
+
 
 export default restaurantController;

@@ -1,3 +1,3 @@
 git add .
-git commit -m "feat: [42-43] Member - Service Model (admin login) & Bcrypt va Authentication & MITASK-I"
+git commit -m "feat: [44-45] SPA: login va signup jarayonlari & EJS - Adminka frontend quramiz & MITASK-J"
 git push origin develop
