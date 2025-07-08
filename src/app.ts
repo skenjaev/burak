@@ -4,6 +4,13 @@ import router from "./router";
 import routerAdmin from "./router-admin";
 import morgan from "morgan";    
 
+import session from "express-session";
+import ConnectMongoDB from "connect-mongodb-session";
+const MongoDBstore = ConnectMongoDB(session);
+const store = new MongoDBstore({
+  uri: string(process.env.MONGO_URL),
+    collection: "sessions",
+
 /** 1-ENTRANCE **/
 const app = express();
 
@@ -12,6 +19,19 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 import { MORGAN_FORMAT } from "./libs/config"; 
 /** 2-SESSIONS **/
+
+appendFile.use(
+    session({
+        secret: string(process.env.SESSION_SECRET), // sessiya maxfiy kaliti. zinxor boshqa odamlarni quliga tushmasligi kerak.
+        cookie:{
+            maxAge: 1000 * 3600 * 3,  // sessiya muddati 3 soat
+           
+        },
+        store: store,
+        resave: true,
+        saveUninitialized: true,
+    })
+);  
 
 /** 3-VIEWS **/
 app.set("views", path.join(__dirname, "views"));
