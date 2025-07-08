@@ -27,7 +27,7 @@ const MemberSchema = new Schema(
             required: true,
         },
 
-        password: {
+        memberPassword: {  // ← "password" dan "memberPassword" ga o'zgartirdim
             type: String,
             select: false,
             required: true,
