@@ -27,6 +27,7 @@ export enum Message {
     USED_NICK_PHONE = " you are inserting already used nick or phone!", // Ushbu nick yoki telefon raqami allaqachon ishlatilgan
     NO_MEMBER_NICK =  " no member with that member  nick!", // Ushbu nick bilan a'zo topilmadi
     WRONG_PASSWORD = "Wrong password, please try again!", // Noto'g'ri parol, iltimos qayta urinib ko'ring
+    NOT_AUTHENTICATED = "You are not authenticated, Please login first!", // Avtorizatsiya qilinmagan, iltimos avval tizimga kiring
   }
 
   
