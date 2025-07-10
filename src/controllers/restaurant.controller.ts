@@ -5,7 +5,7 @@ import { AdminRequest, MemberInput } from "../libs/types/member";
 import { memberType } from "../libs/types/enums/member.enum"; // memberType ni to'g'ri import qilish
 import { LoginInput } from "../libs/types/member";
 import session from "express-session";
-import { Message } from "../libs/Errors";
+import Errors, { Message } from "../libs/Errors";
 
 
 const memberService = new MemberService();
@@ -17,7 +17,7 @@ restaurantController.goHome = (req: Request, res: Response) => {
         res.render("home");
     } catch (err) {
         console.log("Error, goHome:", err);
-        res.send(err); // Xatolikni qaytarish
+        res.redirect("/admin");
     }
 };
 
@@ -27,7 +27,7 @@ restaurantController.getSignup = (req: Request, res: Response) => {
         res.render("Signup");
     } catch (err) {
         console.log("Error, getSignup:", err);
-        res.send(err); // Xatolikni qaytarish
+        res.redirect("/admin");
     }
 };
 
@@ -37,7 +37,7 @@ restaurantController.getLogin = (req: Request, res: Response) => {
         res.render("login");
     } catch (err) {
         console.log("Error, getLogin:", err);
-        res.send(err); // Xatolikni qaytarish
+        res.redirect("/admin");
     }
 };
 
@@ -63,7 +63,8 @@ restaurantController.processSignup = async (
         res.send(result); // "result" o'rniga haqiqiy natija qaytarildi
     } catch (err) {
         console.log("Error, processSignup:", err);
-        res.send(err); // Xatolikni qaytarish
+        const message = err instanceof Errors ? err.message : Message.SOMETHING_WENT_WRONG;
+        res.send(`<script> alert("${message}; window.location.replace('admin/signup') ") </script>`);
     }
 };
 
@@ -82,13 +83,28 @@ restaurantController.processLogin = async (req: AdminRequest, res: Response) => 
         req.session.save(function () {
             res.send(result);  
         });
-
-    4
     } catch (err) {
         console.log("Error, processLogin:", err);
-        res.send(err); // Xatolikni qaytarish
+        const message = err instanceof Errors ? err.message : Message.SOMETHING_WENT_WRONG;
+        res.send(`<script> alert("${message}; window.location.replace('admin/login') ") </script>`);
     }
 };
+
+
+
+restaurantController.logout= async (req: AdminRequest, res: Response) => {
+    try {
+        console.log("logout");
+        req.session.destroy(function(){
+            res.redirect("/admin");
+        });
+
+    } catch (err) {
+        console.log("logout", err);
+        res.redirect("/admin");
+    }
+};
+
 
 
 restaurantController.checkAuthSession = async (req: AdminRequest, res: Response) => {
