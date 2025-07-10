@@ -1,25 +1,25 @@
-import MemberModel from "../schema/Member.model"; // MemberModel default eksport qilingan
-import { MemberInput, Member, LoginInput } from "../libs/types/member"; // MemberInput va Member to'g'ri import qilingan
-import Errors, { HttpCode, Message } from "../libs/Errors"; // Xatoliklarni boshqarish uchun import qilingan
-import { memberType } from "../libs/types/enums/member.enum"; // MemberType to'g'ri import qilingan
-import * as bcrypt from "bcryptjs"; // Parolni shifrlash uchun bcrypt kutubxonasi import qilingan
+import MemberModel from "../schema/Member.model";
+import { MemberInput, Member, LoginInput } from "../libs/types/member";
+import Errors, { HttpCode, Message } from "../libs/Errors";
+import { memberType } from "../libs/types/enums/member.enum";
+import * as bcrypt from "bcryptjs";
 
 class MemberService {
     private readonly memberModel;
 
     constructor() {
-        this.memberModel = MemberModel; // memberModel to'g'ri tayinlandi
+        this.memberModel = MemberModel;
     }
 
     /* SPA */
 
     public async signup(input: MemberInput): Promise<Member> {
-        const salt = await bcrypt.genSalt(); // Parolni shifrlash uchun tuz yaratish.
-        input.memberPassword = await bcrypt.hash(input.memberPassword, salt); // Parolni shifrlash
+        const salt = await bcrypt.genSalt();
+        input.memberPassword = await bcrypt.hash(input.memberPassword, salt);
 
         try {
-            const result = await this.memberModel.create(input); // Yangi a'zo ma'lumotlarini saqlash
-            result.memberPassword = ""; // Parolni javobdan olib tashlash
+            const result = await this.memberModel.create(input);
+            result.memberPassword = "";
             return result.toJSON();
         } catch (err) {
             console.error("Error, model:signup", err);
@@ -28,49 +28,54 @@ class MemberService {
     }
 
     public async login(input: LoginInput): Promise<Member> {
-        // TODO: Telefon raqam bo'yicha a'zoni tekshirish
         const member = await this.memberModel
             .findOne(
                 { memberNick: input.memberNick },
-                { memberNick: 1, memberPassword: 1 } // A'zoni login ma'lumotlari bilan topish
+                { memberNick: 1, memberPassword: 1, memberType: 1 }
             )
-            .exec(); // Telefon raqam bo'yicha a'zoni tekshirish
+            .exec();
         
         if (!member) throw new Errors(HttpCode.NOT_FOUND, Message.NO_MEMBER_NICK);
 
         const isMatch = await bcrypt.compare(
             input.memberPassword,
             member.memberPassword
-        ); // Parolni tekshirish
-        // const isMatch = input.memberPassword === member.memberPassword; // Parolni tekshirish
+        );
         
         if (!isMatch) {
             throw new Errors(HttpCode.UNAUTHORIZED, Message.WRONG_PASSWORD);
         }
 
-        return await this.memberModel.findById(member._id).lean().exec(); // A'zoni ID bo'yicha topish
+        return await this.memberModel.findById(member._id).lean().exec();
     }
 
     /* SSR */
 
     public async processSignup(input: MemberInput): Promise<Member> {
-        const exist = await this.memberModel.findOne({ memberType: memberType.RESTAURANT }).exec(); // Telefon raqam bo'yicha a'zoni tekshirish
+        // Agar RESTAURANT type bo'lsa, avval mavjudligini tekshirish
+        if (input.memberType === memberType.RESTAURANT) {
+            const exist = await this.memberModel
+                .findOne({ memberType: memberType.RESTAURANT })
+                .exec();
+            if (exist) throw new Errors(HttpCode.BAD_REQUEST, Message.CREATE_FAILED);
+        }
 
-        console.log("exist:", exist);
+        // Nickname mavjudligini tekshirish
+        const existingMember = await this.memberModel
+            .findOne({ memberNick: input.memberNick })
+            .exec();
+        if (existingMember) throw new Errors(HttpCode.BAD_REQUEST, Message.USED_NICK_PHONE);
 
-        if (exist) throw new Errors(HttpCode.BAD_REQUEST, Message.CREATE_FAILED);
-
-        console.log("before:", input.memberPassword);
-        const salt = await bcrypt.genSalt(); // Parolni shifrlash uchun tuz yaratish.
-        input.memberPassword = await bcrypt.hash(input.memberPassword, salt); // Parolni shifrlash
-        console.log("after:", input.memberPassword);
+        const salt = await bcrypt.genSalt();
+        input.memberPassword = await bcrypt.hash(input.memberPassword, salt);
 
         try {
-            const tempResult = new this.memberModel(input); // Yangi a'zo yaratish uchun modeldan nusxa olish
-            const result = await tempResult.save(); // Yangi a'zo ma'lumotlarini saqlash
-            result.memberPassword = ""; // Parolni javobdan olib tashlash
-            return result;
+            const tempResult = new this.memberModel(input);
+            const result = await tempResult.save();
+            result.memberPassword = "";
+            return result.toJSON();
         } catch (err) {
+            console.error("Error, processSignup:", err);
             throw new Errors(HttpCode.BAD_REQUEST, Message.CREATE_FAILED);
         }
     }
@@ -79,24 +84,28 @@ class MemberService {
         const member = await this.memberModel
             .findOne(
                 { memberNick: input.memberNick },
-                { memberNick: 1, memberPassword: 1 } // A'zoni login ma'lumotlari bilan topish
+                { memberNick: 1, memberPassword: 1, memberType: 1 }
             )
-            .exec(); // Telefon raqam bo'yicha a'zoni tekshirish
+            .exec();
 
         if (!member) throw new Errors(HttpCode.NOT_FOUND, Message.NO_MEMBER_NICK);
 
         const isMatch = await bcrypt.compare(
             input.memberPassword,
-            member.memberPassword); // Parolni tekshirish
-        // const isMatch = input.memberPassword === member.memberPassword; // Parolni tekshirish
+            member.memberPassword
+        );
 
         if (!isMatch) {
             throw new Errors(HttpCode.UNAUTHORIZED, Message.WRONG_PASSWORD);
         }
 
-        return await this.memberModel.findById(member._id).exec(); // A'zoni ID bo'yicha topish
+        // Parolni olib tashlash va to'liq ma'lumotlarni qaytarish
+        const result = await this.memberModel.findById(member._id).lean().exec();
+        if (result) {
+            result.memberPassword = "";
+        }
+        return result;
     }
 }
-
 
 export default MemberService;

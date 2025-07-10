@@ -1,20 +1,21 @@
 import { ObjectId } from "mongoose";
-
 import { MemberStatus, memberType } from './enums/memberType';
+import { Request } from "express";
+import { Session } from "express-session";
 
 export interface MemberInput {
-    _id: object;       // _id qo'shildi.
+    _id: object;
     memberType: memberType;
     memberNick: string;
     memberPhone: string;
-    memberPassword: string; // memberPassword majburiy qilib belgilandi
+    memberPassword: string;
     memberAddress?: string;
     memberDesc?: string;
     memberImage?: string;
     memberStatus?: string;
     memberPoints?: number;
-    createdAt?: Date; // createdAt qo'shildi
-    updatedAt?: Date; // updatedAt qo'shildi
+    createdAt?: Date;
+    updatedAt?: Date;
 }
 
 export interface Member {
@@ -34,4 +35,9 @@ export interface Member {
 export interface LoginInput {
     memberNick: string;
     memberPassword: string;
+}
+
+export interface AdminRequest extends Request {
+    member: Member;
+    session: Session & { member: Member };
 }

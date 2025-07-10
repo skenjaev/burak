@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { T } from "../libs/types/common";
 import MemberService from "../models/Member.service";
-import { MemberInput } from "../libs/types/member";
+import { AdminRequest, MemberInput } from "../libs/types/member";
 import { memberType } from "../libs/types/enums/member.enum"; // memberType ni to'g'ri import qilish
 import { LoginInput } from "../libs/types/member";
 
@@ -41,7 +41,9 @@ restaurantController.getLogin = (req: Request, res: Response) => {
 
 
 
-restaurantController.processSignup = async (req: Request, res: Response) => {
+restaurantController.processSignup = async (
+    req:AdminRequest,
+     res: Response) => {
     try {
         console.log("processSignup");
         console.log("body:", req.body);
@@ -49,7 +51,13 @@ restaurantController.processSignup = async (req: Request, res: Response) => {
         const newMember: MemberInput = req.body; // Sintaksis xatosi tuzatildi
         newMember.memberType = memberType.RESTAURANT; // memberType RESTAURANT qilib belgilandi
         const result = await memberService.processSignup(newMember); // Sintaksis xatosi tuzatildi
-    // TODO: SESSION AUTHENTICATION;
+    
+
+        req.session.member = result;
+        req.session.save(function () {
+            res.send(result);  
+        });
+
         res.send(result); // "result" o'rniga haqiqiy natija qaytarildi
     } catch (err) {
         console.log("Error, processSignup:", err);
@@ -58,7 +66,7 @@ restaurantController.processSignup = async (req: Request, res: Response) => {
 };
 
 
-restaurantController.processLogin = async (req: Request, res: Response) => {
+restaurantController.processLogin = async (req: AdminRequest, res: Response) => {
     try {
         console.log("processLogin");
 
@@ -66,9 +74,14 @@ restaurantController.processLogin = async (req: Request, res: Response) => {
         const input: LoginInput = req.body;     
         const result = await memberService.processLogin(input); // processLogin metodini chaqirish
          
-        // TODO: SESSION AUTHENTICATION;
+       
 
-        res.send(result); // "result" o'rniga haqiqiy natija qaytarildi
+        req.session.member = result;
+        req.session.save(function () {
+            res.send(result);  
+        });
+
+    4
     } catch (err) {
         console.log("Error, processLogin:", err);
         res.send(err); // Xatolikni qaytarish
