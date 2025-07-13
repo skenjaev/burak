@@ -5,7 +5,7 @@ ekanligini aniqlovchi function tuzing
 
 MASALAN: countVowels("string"); return 1 */
 
-function countVowels(str: string): number {
+function countVowels(str:string): number {
     const vowels = 'aeiouAEIOU';
     let count = 0;
 
