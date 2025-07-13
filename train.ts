@@ -44,13 +44,13 @@ const reverseSentenceShort = str => str.split(' ')
     .join(''))
     .join(' ');
 
-console.log(reverseSentenceShort("we like coding!")); // "ew ekil !gnidoc"
+console.log(reverseSentenceShort("we like coding!")); // "ew ekil !gnidoc"  
 
 
 
 
 
-
+ 
 /*
 split('') - so'zni harflarga ajratadi: "we" → ['w', 'e']
 reverse() - massivni teskari qiladi: ['w', 'e'] → ['e', 'w']
