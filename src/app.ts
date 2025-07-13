@@ -2,43 +2,53 @@ import express from "express";
 import path from "path";
 import router from "./router";
 import routerAdmin from "./router-admin";
-import morgan from "morgan";    
+import morgan from "morgan"
+import  { MORGAN_FORMAT } from "./libs/config"
 
-import session from "express-session";
-import ConnectMongoDB from "connect-mongodb-session";
-const MongoDBstore = ConnectMongoDB(session);
-const store = new MongoDBstore({
-  uri: String(process.env.MONGO_URL), // string -> String yoki process.env.MONGO_URL || ""
-  collection: "sessions",
-}); // } yetishmayotgan edi
+import session from "express-session"; /// session datani HTTP requestlarda manage qilishda yordam beradi
+import ConnectMongoDB from "connect-mongodb-session" // session datani in a MongoDB databasega saqlaydi
+import { T } from "./libs/types/common";
 
-/** 1-ENTRANCE **/
+const MongoDBStore = ConnectMongoDB(session);
+const store = new MongoDBStore({
+    uri: String(process.env.MONGO_URL),
+    collection: "session"
+})
+
+// 1-ENTRANCE: 
 const app = express();
+app.use(express.static(path.join(__dirname, "public"))); // Serve static files
+app.use(express.urlencoded({ extended: true })); // Parse URL-encoded data
+app.use(express.json()); // Parse JSON data
+app.use(morgan(MORGAN_FORMAT))
 
-app.use(express.static(path.join(__dirname, "public")));
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-import { MORGAN_FORMAT } from "./libs/config"; 
-
-/** 2-SESSIONS **/
-app.use( // appendFile.use -> app.use
+// 2-SESSIONS: 
+app.use(
     session({
-        secret: String(process.env.SESSION_SECRET), // string -> String yoki process.env.SESSION_SECRET || "default-secret"
-        cookie:{
-            maxAge: 1000 * 3600 * 3,  // sessiya muddati 3 soat
+        secret: String(process.env.SESSION_SECRET),
+        cookie: {
+            maxAge: 1000 * 3600 * 3, /// 3 hours
         },
         store: store,
         resave: true,
         saveUninitialized: true,
     })
-);  
+);
 
-/** 3-VIEWS **/
-app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "ejs");
+app.use(function (req, res, next) {
+    const sessionInstance = req.session as T;
+    res.locals.member = sessionInstance.member;
+    next();
+})
 
-/** 4-ROUTERS **/
-app.use("/admin", routerAdmin);  //SSR    // EJS
-app.use("/", router);           //SPA   // REACT //middleware design pattern
 
+// 3-VIEWS: 
+app.set("views", path.join(__dirname, "views")); // Set views folder
+app.set("view engine", "ejs"); // Use EJS as template engine
+
+// 4-ROUTERS:
+app.use('/admin', routerAdmin); // SSR
+app.use('/', router);      // SPA
+
+// Export the app for use in other files
 export default app;
