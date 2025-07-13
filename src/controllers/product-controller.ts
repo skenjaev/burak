@@ -8,7 +8,7 @@ import ProductService from "../models/product-service";
 const productService = new ProductService();
 const productController: T = {};
 
-productController.getAllProducts = async (req:Request, res: Response) => {
+productController.getAllProducts = async (req:Request, res: Response) => { 
     try{
         console.log("getAllProducts");
 
