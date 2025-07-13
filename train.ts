@@ -27,27 +27,33 @@ Modern frontend development => SPA => React
 
 
 
-/*TASK K:
 
-Berilayotgan parametr tarkibida nechta unli harf bor
-ekanligini aniqlovchi function tuzing
 
-MASALAN: countVowels("string"); return 1 */
+/*
+L-TASK: 
 
-function countVowels(str: string): number {
-    const vowels = 'aeiouAEIOU';
-    let count = 0;
+Shunday function yozing, u string qabul qilsin va string ichidagi hamma sozlarni chappasiga yozib va sozlar ketma-ketligini buzmasdan stringni qaytarsin.
+MASALAN: reverseSentence("we like coding!") return "ew ekil gnidoc";
 
-    for (const char of str) {
-        if (vowels.includes(char)) {
-            count++;
-        }
-    }
+*/
 
-    return count;
-};
+const reverseSentenceShort = str => str.split(' ')
+.map(word => word
+    .split('')
+    .reverse()
+    .join(''))
+    .join(' ');
 
-// Test
+console.log(reverseSentenceShort("we like coding!")); // "ew ekil !gnidoc"
 
-console.log(countVowels("string")); 
-console.log(countVowels("hello world")); 
+
+
+
+
+
+/*
+split('') - so'zni harflarga ajratadi: "we" → ['w', 'e']
+reverse() - massivni teskari qiladi: ['w', 'e'] → ['e', 'w']
+join('') - massivni stringga birlashtiradi: ['e', 'w'] → "ew"
+
+*/
