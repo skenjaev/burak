@@ -7,18 +7,20 @@ import * as bcrypt from "bcryptjs";
 class MemberService {
     private readonly memberModel;
     constructor() {
-      this.memberModel = MemberModel; // Assign MemberModel (Mongoose model) to the class variable
+      this.memberModel = MemberModel; 
     }
+  
 
 /** SPA */
-public async signup(input:MemberInput): Promise<Member> {
+public async signup(input: MemberInput): Promise<Member> {
   const salt = await bcrypt.genSalt();
   input.memberPassword = await bcrypt.hash(input.memberPassword, salt);
 
   try {
     const result = await this.memberModel.create(input);
-    result.memberPassword = "";
-    return result.toJSON();
+    const resultObj = result.toJSON();
+    resultObj.memberPassword = "";
+    return resultObj;
   } catch(err) {
     console.error("Error, model:signup", err);
     throw new Errors(HttpCode.BAD_REQUEST, Message.USED_NICK_PHONE);
@@ -30,11 +32,11 @@ public async login(input: LoginInput): Promise<Member> {
   const member = await this.memberModel
   .findOne(
     {memberNick: input.memberNick},
-    {memberNick:1, memberPassword: 1}
+    {memberNick: 1, memberPassword: 1}
   )
   .exec();
 
-  if(!member) throw new Errors (HttpCode.NOT_FOUND, Message.NO_MEMBER_NICK);
+  if(!member) throw new Errors(HttpCode.NOT_FOUND, Message.NO_MEMBER_NICK);
 
   const isMatch = await bcrypt.compare(
     input.memberPassword,
@@ -44,7 +46,12 @@ public async login(input: LoginInput): Promise<Member> {
     throw new Errors(HttpCode.UNAUTHORIZED, Message.WRONG_PASSWORD);
   }
 
-  return await this.memberModel.findById(member._id).lean().exec() // olingan malumotni uzgartira olamiz
+  const result = await this.memberModel.findById(member._id).lean().exec();
+  if(!result) throw new Errors(HttpCode.NOT_FOUND, Message.NO_MEMBER_NICK);
+  
+  // Parolni olib tashlash
+  const { memberPassword, ...memberWithoutPassword } = result;
+  return memberWithoutPassword as Member;
 }
   
 /** SSR */
@@ -62,15 +69,18 @@ public async processSignup(input: MemberInput): Promise<Member> {
       console.log("after:", input.memberPassword);
       
     try {
-        const result = await this.memberModel.create(input); // Create a new member in the database with the provided input
-  
-        result.memberPassword = ""; 
-  
-        return result;
+        const result = await this.memberModel.create(input);
+        
+        // Parolni olib tashlash
+        const resultObj = result.toJSON();
+        resultObj.memberPassword = "";
+        
+        return resultObj;
     } catch (err) {
         throw new Errors(HttpCode.BAD_REQUEST, Message.CREATE_FAILED);
       }
     }
+
 public async processLogin(input: LoginInput): Promise<Member> {
     const member = await this.memberModel
     .findOne({memberNick: input.memberNick},
@@ -78,17 +88,44 @@ public async processLogin(input: LoginInput): Promise<Member> {
         )
         .exec();
     if (!member) throw new Errors(HttpCode.NOT_FOUND, Message.NO_MEMBER_NICK);
-      const isMatch = await bcrypt.compare(
+      
+    const isMatch = await bcrypt.compare(
       input.memberPassword,
       member.memberPassword
-        )
-       //const isMatch = input.memberPassword === member.memberPassword;
+    );
+    
     if(!isMatch) {
         throw new Errors(HttpCode.UNAUTHORIZED, Message.WRONG_PASSWORD);
-       }    
-    return await this.memberModel.findById(member._id).exec() 
-    }
-  }
+    }    
+    
+    const result = await this.memberModel.findById(member._id).exec();
+    if (!result) throw new Errors(HttpCode.NOT_FOUND, Message.NO_MEMBER_NICK);
+    
+    // Parolni olib tashlash
+    const resultObj = result.toJSON();
+    resultObj.memberPassword = "";
+    
+    return resultObj;
+}
+
+
+public async getUsers(): Promise<Member[]> {
+      const result = await this.memberModel
+        .find({ memberType: MemberType.USER })
+        .exec();
+
+        if (!result || result.length === 0) {
+            throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
+        }
+
+        // Har bir user uchun parolni olib tashlash
+        return result.map(user => {
+            const userObj = user.toJSON();
+            userObj.memberPassword = "";
+            return userObj;
+        });
+}
   
+}
 
 export default MemberService;
