@@ -116,6 +116,32 @@ console.log(calculateSumOfNumbers([10, "10", { son: 10 }, true, 35])); // Natija
 console.log(calculateSumOfNumbers([5, "15", { son: 20 }, false, 25])); // Natija: 65
 
 
+/*
+P-TASK:
+
+Shunday function yozing, u object qabul qilsin va arrayni object arrayga otkazib arrayni qaytarsin qaytarsin.
+MASALAN: objectToArray( {a: 10, b: 20}) return [['a', 10], ['b', 20]]
+*/
 
 
+function objectToArray(obj: any): any[] {
+  let result = [];
+  
+  
+  let keys = Object.keys(obj);
+  
+  for (let i = 0; i < keys.length; i++) {
+    let key = keys[i];
+    let value = obj[key];
+    
+    
+    result.push([key, value]);
+  }
+  
+  return result;
+}
+
+
+console.log(objectToArray({a: 10, b: 20})); 
+console.log(objectToArray({name: "Ali", age: 25, city: "Tashkent"})); 
 
