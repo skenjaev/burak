@@ -7,26 +7,35 @@
   - CSS → snake_case (masalan: button_style - tugma stilini belgilash)  
 
 
-// Misollar:
-goHome          // ✅ camelCase (funksiya - bosh sahifaga qaytish)  
-MemberService   // ✅ PascalCase (klass - foydalanuvchilar servisi)  
-button_style    // ✅ snake_case (CSS - tugma uchun stil)  
-project-utils   // ✅ kebab-case (papka - yordamchi vositalar)  */
 
 
-/*
+
+/* Request (Loyiha Standartlari)
+
  Traditinal API
  Rest API
  GraphQL API
 */
 
-/*
-Traditinal frontend development => BSSR => EJS
-Modern frontend development => SPA => React
+/* Frontend Development (Standartlari)
+
+Traditinal FD  (frontend development) => BSSR => EJS
+Modern FD (frontend development) => SPA => React
 */
 
 
+/*Cookies
 
+request join
+self destroy
+*/
+
+/* Vlaidation
+
+Frontend validation
+Backend validation
+Database validation
+*/
 
 
 /*
@@ -140,6 +149,7 @@ function objectToArray(obj: any): any[] {
   
   return result;
 }
+
 
 
 console.log(objectToArray({a: 10, b: 20})); 
