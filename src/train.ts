@@ -93,65 +93,84 @@ MASALAN: calculateSumOfNumbers([10, "10", {son: 10}, true, 35]) return 45
 */
 
 
-function calculateSumOfNumbers(values: any[]) {
-  let sum = 0;
+// function calculateSumOfNumbers(values: any[]) {
+//   let sum = 0;
   
-  for (let i = 0; i < values.length; i++) {
-    let value = values[i];
+//   for (let i = 0; i < values.length; i++) {
+//     let value = values[i];
     
     
-    if (typeof value === 'number') {
-      sum += value;
-    }
+//     if (typeof value === 'number') {
+//       sum += value;
+//     }
     
-    else if (typeof value === 'string' && !isNaN(Number(value))) {
-      sum += Number(value);
-    }
+//     else if (typeof value === 'string' && !isNaN(Number(value))) {
+//       sum += Number(value);
+//     }
    
-    else if (typeof value === 'object' && value !== null && value.son !== undefined) {
-      sum += value.son;
-    }
+//     else if (typeof value === 'object' && value !== null && value.son !== undefined) {
+//       sum += value.son;
+//     }
    
-    else if (typeof value === 'boolean') {
-      sum += value ? 1 : 0; // true = 1, false = 0
-    }
-  }
+//     else if (typeof value === 'boolean') {
+//       sum += value ? 1 : 0; // true = 1, false = 0
+//     }
+//   }
   
-  return sum;
-}
+//   return sum;
+// }
 
 
-console.log(calculateSumOfNumbers([10, "10", { son: 10 }, true, 35])); // Natija: 66
-console.log(calculateSumOfNumbers([5, "15", { son: 20 }, false, 25])); // Natija: 65
+// console.log(calculateSumOfNumbers([10, "10", { son: 10 }, true, 35])); // Natija: 66
+// console.log(calculateSumOfNumbers([5, "15", { son: 20 }, false, 25])); // Natija: 65
+
+
+// /*
+// P-TASK:
+
+// Shunday function yozing, u object qabul qilsin va arrayni object arrayga otkazib arrayni qaytarsin qaytarsin.
+// MASALAN: objectToArray( {a: 10, b: 20}) return [['a', 10], ['b', 20]]
+// */
+
+
+// function objectToArray(obj: any): any[] {
+//   let result = [];
+  
+  
+//   let keys = Object.keys(obj);
+  
+//   for (let i = 0; i < keys.length; i++) {
+//     let key = keys[i];
+//     let value = obj[key];
+    
+    
+//     result.push([key, value]);
+//   }
+  
+//   return result;
+// }
+
+
+
+// console.log(objectToArray({a: 10, b: 20})); 
+// console.log(objectToArray({name: "Ali", age: 25, city: "Tashkent"}));
 
 
 /*
-P-TASK:
 
-Shunday function yozing, u object qabul qilsin va arrayni object arrayga otkazib arrayni qaytarsin qaytarsin.
-MASALAN: objectToArray( {a: 10, b: 20}) return [['a', 10], ['b', 20]]
+Q-TASK:
+
+Shunday function yozing, u 2 ta parametrgga ega bolib birinchisi object, ikkinchisi string. Agar string parametr objectni propertysi bolsa true bolmasa false qaytarsin.
+MASALAN: hasProperty({name: "BMW", model: "M3"}, "model") return true; hasProperty({name: "BMW", model: "M3"}, "year") return false
+
 */
 
 
-function objectToArray(obj: any): any[] {
-  let result = [];
-  
-  
-  let keys = Object.keys(obj);
-  
-  for (let i = 0; i < keys.length; i++) {
-    let key = keys[i];
-    let value = obj[key];
-    
-    
-    result.push([key, value]);
-  }
-  
-  return result;
+function hasProperty(obj: { [key: string]: any }, propertyName: string): boolean {
+  return obj.hasOwnProperty(propertyName);
 }
 
+const person = {name: "Ali", age: 25, city: "Toshkent"};
 
-
-console.log(objectToArray({a: 10, b: 20})); 
-console.log(objectToArray({name: "Ali", age: 25, city: "Tashkent"})); 
-
+console.log('hasProperty(person, "age"):', hasProperty(person, "age"));
+console.log('hasProperty(person, "salary"):', hasProperty(person, "salary"));
