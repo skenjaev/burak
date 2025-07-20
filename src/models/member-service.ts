@@ -1,7 +1,7 @@
 import MemberModel from "../schema/member-model";
 import { LoginInput, Member, MemberInput, MemberUpdateInput } from "../libs/types/member"; // MemberUpdateInput qo'shildi
 import Errors, { HttpCode, Message } from "../libs/Errors";
-import { MemberType } from "../libs/enums/member-enum";
+import { MemberStatus, MemberType } from "../libs/enums/member-enum";
 import * as bcrypt from "bcryptjs";
 import { shapeIntoMongooseObjectId } from "../libs/config";
 
@@ -29,30 +29,29 @@ public async signup(input: MemberInput): Promise<Member> {
 }
 
 public async login(input: LoginInput): Promise<Member> {
-  // TODO: Consider member status later
   const member = await this.memberModel
-  .findOne(
-    {memberNick: input.memberNick},
-    {memberNick: 1, memberPassword: 1}
-  )
-  .exec();
-
-  if(!member) throw new Errors(HttpCode.NOT_FOUND, Message.NO_MEMBER_NICK);
-
-  const isMatch = await bcrypt.compare(
-    input.memberPassword,
-    member.memberPassword
-  );
-  if(!isMatch) {
-    throw new Errors(HttpCode.UNAUTHORIZED, Message.WRONG_PASSWORD);
+      .findOne(
+          {
+              memberNick: input.memberNick,
+              memberStatus: { $ne: MemberStatus.DELETE },
+          },
+          { memberNick: 1, memberPassword: 1, memberStatus: 1 }
+      )
+      .exec();
+  if (!member) throw new Errors(HttpCode.NOT_FOUND, Message.NO_MEMBER_NICK);
+  else if (member.memberStatus === MemberStatus.BLOCK) {
+      throw new Errors(HttpCode.FORBIDDEN, Message.BLOCKED_USER);
   }
 
-  const result = await this.memberModel.findById(member._id).lean().exec();
-  if(!result) throw new Errors(HttpCode.NOT_FOUND, Message.NO_MEMBER_NICK);
-  
-  // Parolni olib tashlash
-  const { memberPassword, ...memberWithoutPassword } = result;
-  return memberWithoutPassword as Member;
+  const isMatch = await bcrypt.compare(
+      input.memberPassword,
+      member.memberPassword
+  );
+  if (!isMatch) {
+      throw new Errors(HttpCode.UNAUTHORIZED, Message.WRONG_PASSWORD);
+  }
+
+  return await this.memberModel.findById(member._id).lean().exec();
 }
   
 /** SSR */
