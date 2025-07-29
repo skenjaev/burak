@@ -166,11 +166,51 @@ MASALAN: hasProperty({name: "BMW", model: "M3"}, "model") return true; hasProper
 */
 
 
-function hasProperty(obj: { [key: string]: any }, propertyName: string): boolean {
-  return obj.hasOwnProperty(propertyName);
+// function hasProperty(obj: { [key: string]: any }, propertyName: string): boolean {
+//   return obj.hasOwnProperty(propertyName);
+// }
+
+// const person = {name: "Ali", age: 25, city: "Toshkent"};
+
+// console.log('hasProperty(person, "age"):', hasProperty(person, "age"));
+// console.log('hasProperty(person, "salary"):', hasProperty(person, "salary"));
+
+
+/*
+S-TASK:
+
+Shunday function yozing, u numberlardan tashkil topgan array qabul qilsin va osha numberlar orasidagi tushib qolgan sonni topib uni return qilsin
+MASALAN: missingNumber([3, 0, 1]) return 2
+*/
+
+function missingNumberXOR(nums: number[]): number {
+  let xor = nums.length;
+  for (let i = 0; i < nums.length; i++) {
+      xor ^= i ^ nums[i];
+  }
+  return xor;
 }
 
-const person = {name: "Ali", age: 25, city: "Toshkent"};
 
-console.log('hasProperty(person, "age"):', hasProperty(person, "age"));
-console.log('hasProperty(person, "salary"):', hasProperty(person, "salary"));
+console.log(missingNumberXOR([3, 0, 1])); 
+console.log(missingNumberXOR([0, 1])); 
+
+
+/*
+ TASK T
+
+// Shunday function tuzing, u sonlardan tashkil topgan 2'ta array qabul qilsin.
+// Va ikkala arraydagi sonlarni tartiblab bir arrayda qaytarsin.
+
+// MASALAN: mergeSortedArrays([0, 3, 4, 31], [4, 6, 30]); return [0, 3, 4, 4, 6, 30, 31];
+
+// Yuqoridagi misolda, ikkala arrayni birlashtirib, tartib raqam bo'yicha tartiblab qaytarmoqda.
+*/
+
+function mergeSortedArrays(arr1: number[], arr2: number[]): number[] {
+  return [...arr1, ...arr2].sort((a, b) => a - b);
+}
+
+// Test qilish
+
+console.log(mergeSortedArrays([0, 3, 4, 31], [4, 6, 30])); 
