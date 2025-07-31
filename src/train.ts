@@ -183,17 +183,17 @@ Shunday function yozing, u numberlardan tashkil topgan array qabul qilsin va osh
 MASALAN: missingNumber([3, 0, 1]) return 2
 */
 
-function missingNumberXOR(nums: number[]): number {
-  let xor = nums.length;
-  for (let i = 0; i < nums.length; i++) {
-      xor ^= i ^ nums[i];
-  }
-  return xor;
-}
+// function missingNumberXOR(nums: number[]): number {
+//   let xor = nums.length;
+//   for (let i = 0; i < nums.length; i++) {
+//       xor ^= i ^ nums[i];
+//   }
+//   return xor;
+// }
 
 
-console.log(missingNumberXOR([3, 0, 1])); 
-console.log(missingNumberXOR([0, 1])); 
+// console.log(missingNumberXOR([3, 0, 1])); 
+// console.log(missingNumberXOR([0, 1])); 
 
 
 /*
@@ -207,10 +207,31 @@ console.log(missingNumberXOR([0, 1]));
 // Yuqoridagi misolda, ikkala arrayni birlashtirib, tartib raqam bo'yicha tartiblab qaytarmoqda.
 */
 
-function mergeSortedArrays(arr1: number[], arr2: number[]): number[] {
-  return [...arr1, ...arr2].sort((a, b) => a - b);
+// function mergeSortedArrays(arr1: number[], arr2: number[]): number[] {
+//   return [...arr1, ...arr2].sort((a, b) => a - b);
+// }
+
+// // Test qilish
+
+// console.log(mergeSortedArrays([0, 3, 4, 31], [4, 6, 30])); 
+
+
+
+/*
+U-TASK:
+
+Shunday function yozing, uni number parametri bolsin va 0 dan berilgan parametrgacha bolgan oraliqdagi faqat toq sonlar nechtaligini return qilsin
+MASALAN: sumOdds(9) return 4; sumOdds(11) return 5;
+*/
+
+function sumOdds(number: number): number {
+  let count = 0;
+  for (let i = 1; i < number; i += 2) {
+    count++;
+  }
+  return count;
 }
 
-// Test qilish
 
-console.log(mergeSortedArrays([0, 3, 4, 31], [4, 6, 30])); 
+console.log(sumOdds(9));   
+console.log(sumOdds(11)); 
