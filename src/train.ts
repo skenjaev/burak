@@ -1,237 +1,247 @@
-/* Loyiha Standartlari:
-- Logging Standartlari (Dastur harakatini kuzatish qoidalari)
-- Nomlash Standartlari:
-  - funksiya/metod/o'zgaruvchi → camelCase (masalan: goHome - bosh sahifaga o'tish)  
-  - Klass → PascalCase (masalan: MemberService - a'zolarni boshqarish servisi)  
-  - Papka → kebab-case (masalan: project-utils - loyiha yordamchi fayllari)  
-  - CSS → snake_case (masalan: button_style - tugma stilini belgilash)  
+console.log("Train is started")
+
+
+function countChars(str: string){
+  let result: { [key: string]: number } = {}
+
+  for (let i = 0; i < str.length; i++) {
+    let char = str.charAt(i)
+    if (!result.hasOwnProperty(char)) {
+      result[char] = 0
+    }
+    result[char]++
+  }
+  return result
+}
+console.log(countChars("hello"))
 
 
 
 
+// function sumOdds(num: number): number {
+//   let count = 0
 
-/* Request (Loyiha Standartlari)
-
- Traditinal API
- Rest API
- GraphQL API
-*/
-
-/* Frontend Development (Standartlari)
-
-Traditinal FD  (frontend development) => BSSR => EJS
-Modern FD (frontend development) => SPA => React
-*/
-
-
-/*Cookies
-
-request join
-self destroy
-*/
-
-/* Vlaidation
-
-Frontend validation
-Backend validation
-Database validation
-*/
-
-
-/*
-L-TASK: 
-
-Shunday function yozing, u string qabul qilsin va string ichidagi hamma sozlarni chappasiga yozib va sozlar ketma-ketligini buzmasdan stringni qaytarsin.
-MASALAN: reverseSentence("we like coding!") return "ew ekil gnidoc";
-
-*/
-
-// const reverseSentenceShort = str => str.split(' ')
-// .map(word => word
-//     .split('')
-//     .reverse()
-//     .join(''))
-//     .join(' ');
-
-// console.log(reverseSentenceShort("we like coding!")); // "ew ekil !gnidoc"  
+//   for (let i = 0; i <= num; i++) {
+//       if (i % 2 !== 0) {
+//           count++
+//       }
+//   }
+//   return count
+// }
+// console.log(sumOdds(9))
 
 
 
+// function missingNumber(numbers: number[]) {
+//   let newNum = numbers.length
+//   let expectedSum = 0
+//   let actualSum = 0
 
-
- 
-/*
-split('') - so'zni harflarga ajratadi: "we" → ['w', 'e']
-reverse() - massivni teskari qiladi: ['w', 'e'] → ['e', 'w']
-join('') - massivni stringga birlashtiradi: ['e', 'w'] → "ew"
-
-*/
-
-
-/* ------ Task M -------  */
-
-//Shunday function yozing, u raqamlardan tashkil topgan array qabul qilsin va array ichidagi har bir raqam uchun raqamni ozi va hamda osha raqamni kvadratidan tashkil topgan object hosil qilib, hosil bolgan objectlarni array ichida qaytarsin.
-//MASALAN: getSquareNumbers([1, 2, 3]) return [{number: 1, square: 1}, {number: 2, square: 4}, {number: 3, square: 9}];
-
-// function getSquareNumbers(numbers: number[]): { number: number, square: number }[] {
-//   return numbers.map(num => ({
-//     number: num,
-//     square: num * num
-//   }));
+//   for (let i = 0; i < newNum; i++) {
+//     actualSum += numbers[i]
+//     expectedSum += i
+//   } if (expectedSum += newNum) 
+       
+//   return expectedSum - actualSum
 // }
 
-// console.log(getSquareNumbers([1, 2, 3]));
+// console.log(missingNumber([3, 0, 1]))
 
 
-/*
 
-O-TASK:
-
-Shunday function yozing, u har xil valuelardan iborat array qabul qilsin va array ichidagi sonlar yigindisini hisoblab chiqqan javobni qaytarsin.
-MASALAN: calculateSumOfNumbers([10, "10", {son: 10}, true, 35]) return 45
-
-*/
-
-
-// function calculateSumOfNumbers(values: any[]) {
-//   let sum = 0;
-  
-//   for (let i = 0; i < values.length; i++) {
-//     let value = values[i];
-    
-    
-//     if (typeof value === 'number') {
-//       sum += value;
-//     }
-    
-//     else if (typeof value === 'string' && !isNaN(Number(value))) {
-//       sum += Number(value);
-//     }
-   
-//     else if (typeof value === 'object' && value !== null && value.son !== undefined) {
-//       sum += value.son;
-//     }
-   
-//     else if (typeof value === 'boolean') {
-//       sum += value ? 1 : 0; // true = 1, false = 0
-//     }
+// function calculate(textOfNumber: string): number {
+//   let numbers = textOfNumber.split(' + ').map(Number)
+//   let sum = 0
+//   for (let i = 0; i < numbers.length; i++) {
+//     sum += numbers[i]
 //   }
-  
-//   return sum;
+//   return sum
 // }
 
-
-// console.log(calculateSumOfNumbers([10, "10", { son: 10 }, true, 35])); // Natija: 66
-// console.log(calculateSumOfNumbers([5, "15", { son: 20 }, false, 25])); // Natija: 65
+// console.log(calculate("1 + 3"))
 
 
-// /*
-// P-TASK:
-
-// Shunday function yozing, u object qabul qilsin va arrayni object arrayga otkazib arrayni qaytarsin qaytarsin.
-// MASALAN: objectToArray( {a: 10, b: 20}) return [['a', 10], ['b', 20]]
-// */
-
-
-// function objectToArray(obj: any): any[] {
-//   let result = [];
-  
-  
-//   let keys = Object.keys(obj);
-  
-//   for (let i = 0; i < keys.length; i++) {
-//     let key = keys[i];
-//     let value = obj[key];
-    
-    
-//     result.push([key, value]);
+// function hasProperty(obj: Record<string, any>, key: string): boolean {
+//   for (const prop in obj) {
+//     if (prop === key) {
+//       return true;
+//     }
 //   }
-  
+//   return false;
+// }
+// console.log(hasProperty({ name: "BMW", model: "M3" }, "model"));
+
+// function objectToArrays(obj: any) {
+//   const result: any = [];
+//   const key = Object.keys(obj);
+
+//   for (let i = 0; i < key.length; i++) {
+//     result.push([key[i], obj[key[i]]]);
+//   }
+
 //   return result;
 // }
 
 
-
-// console.log(objectToArray({a: 10, b: 20})); 
-// console.log(objectToArray({name: "Ali", age: 25, city: "Tashkent"}));
+// console.log(objectToArrays({ a: 10, b: 20 }));
 
 
-/*
 
-Q-TASK:
+// function calculateSumOfNumbers(arr: (any | number[])) {
+//   let sum = 0
 
-Shunday function yozing, u 2 ta parametrgga ega bolib birinchisi object, ikkinchisi string. Agar string parametr objectni propertysi bolsa true bolmasa false qaytarsin.
-MASALAN: hasProperty({name: "BMW", model: "M3"}, "model") return true; hasProperty({name: "BMW", model: "M3"}, "year") return false
-
-*/
-
-
-// function hasProperty(obj: { [key: string]: any }, propertyName: string): boolean {
-//   return obj.hasOwnProperty(propertyName);
-// }
-
-// const person = {name: "Ali", age: 25, city: "Toshkent"};
-
-// console.log('hasProperty(person, "age"):', hasProperty(person, "age"));
-// console.log('hasProperty(person, "salary"):', hasProperty(person, "salary"));
-
-
-/*
-S-TASK:
-
-Shunday function yozing, u numberlardan tashkil topgan array qabul qilsin va osha numberlar orasidagi tushib qolgan sonni topib uni return qilsin
-MASALAN: missingNumber([3, 0, 1]) return 2
-*/
-
-// function missingNumberXOR(nums: number[]): number {
-//   let xor = nums.length;
-//   for (let i = 0; i < nums.length; i++) {
-//       xor ^= i ^ nums[i];
+//   for (let i = 0; i < arr.length; i++) {
+//       if (typeof arr[i] === 'number') {
+//          sum += arr[i]
+//      }
 //   }
-//   return xor;
+//   return sum
 // }
 
+// console.log(calculateSumOfNumbers([50, "1", { son: 10 }, true, 35]))
 
-// console.log(missingNumberXOR([3, 0, 1])); 
-// console.log(missingNumberXOR([0, 1])); 
+// console.log("===========================================")
+  
+// function palindromChech(text: string):boolean {
+//    const newText = text.length
+
+//    for(let word = 0; word < Math.floor(newText /2); word++){
+//     if (text[newText] !== text[newText - 1 -word]) {
+//       return true
+//     }
+//    }
+//    return false
+// }
+
+// console.log(palindromChech("dad"))
+
+
+
+  // function getSquareNumbers(numbers: number[]){
+  //   let ourResult: any[] = [];
+  
+  //   for (const number of numbers) {
+  //     const square = number * number;
+  //   ourResult.push([
+  //    "Our Objects",
+  //    { number: number },
+  //    "Our Square :",
+  //    { square: square },
+  //     ]);
+  //   }
+  
+  //   return ourResult;
+  // }
+  
+  
+  // console.log(getSquareNumbers([11, 22, 33]))
+  
+
+
+// function reverseSentence(text: string): string {
+//     const listOfWords = text.split(" ");
+//     let reversedSentence = "";
+  
+//     for (const word of listOfWords) {
+//       const reversedWord = word.split("").reverse().join("");
+//       reversedSentence += reversedWord + " ";
+//     }
+//     return reversedSentence
+//   }
+  
+//   console.log(reverseSentence("My name is Bekzod"))
+
+
+// function countVowels(text: string) {
+//     let ourVowels = "a e i o u a e i o u"
+//     let vowelCount = 0
+
+//     for (const letter of text) {
+//         if (ourVowels.includes(letter)) {
+//             vowelCount++
+//         }
+//     }
+//     return vowelCount
+// }
+
+// console.log(countVowels("Bekzod"));
+
+console.log("=========================================")
+
+// function findLongestWord (text:string) {
+//  let listOfWords = text.split(" ")
+//  let longestWord:string = ""
+//     for(let word of listOfWords) {
+//     if(word.length > longestWord.length){
+//     longestWord = word
+//     }
+//  }
+//  return longestWord
+// }
+
+// console.log(findLongestWord("I am from Uzbekistan"))
+
+
+
+
+
+/* Project standards
+- Login standards 
+- Naming standards
+    function, method,variable => CAMEL    
+    class => PASCAL
+    folder => KEBAB
+    css = SNAKE
+-- Erorr 
+
+*/
+
+// Traditional Api
+// Rest APi
+// GraphQl Api
 
 
 /*
- TASK T
-
-// Shunday function tuzing, u sonlardan tashkil topgan 2'ta array qabul qilsin.
-// Va ikkala arraydagi sonlarni tartiblab bir arrayda qaytarsin.
-
-// MASALAN: mergeSortedArrays([0, 3, 4, 31], [4, 6, 30]); return [0, 3, 4, 4, 6, 30, 31];
-
-// Yuqoridagi misolda, ikkala arrayni birlashtirib, tartib raqam bo'yicha tartiblab qaytarmoqda.
+Traditional Frontend development (FD)   =>  BSSR -- (ADMINKA)  =>  ESJ
+Modern Frontend Development (FD)  =>  SPA -- (USER)  => REACT
 */
 
-// function mergeSortedArrays(arr1: number[], arr2: number[]): number[] {
-//   return [...arr1, ...arr2].sort((a, b) => a - b);
+/* 
+    request join
+    self destroy
+*/
+
+
+
+// function getDigits (arr:number[]) {
+//     let result:any = {}
+    
+//     for(let char of arr) {
+//         if(result[char]>=0) {
+//           result[char] += 1
+//         }else{ 
+//           result[char] = 0
+//         }
+//     }
+  
+//     return result
+
+//   }
+//   console.log(getDigits([1,2,3,5,1,7,1]))
+
+  
+
+//   function getSecondIndex(numbers:number[]) {
+//     let musbatRaqam:number[] = []
+//     for(let i = 0; i < numbers.length; i++){
+//         if(numbers[i] >= 0){
+//             musbatRaqam.push(numbers[i])
+//         }else{
+//             if(numbers[i] >= 0){
+//                 musbatRaqam.push(numbers[i])}
+//         }
+//     }
+//     return musbatRaqam.join("")
 // }
+// console.log(getSecondIndex([-2, -5, 3, 1, 9]))
 
-// // Test qilish
-
-// console.log(mergeSortedArrays([0, 3, 4, 31], [4, 6, 30])); 
-
-
-
-/*
-U-TASK:
-
-Shunday function yozing, uni number parametri bolsin va 0 dan berilgan parametrgacha bolgan oraliqdagi faqat toq sonlar nechtaligini return qilsin
-MASALAN: sumOdds(9) return 4; sumOdds(11) return 5;
-*/
-
-function sumOdds(number: number): number {
-  let count = 0;
-  for (let i = 1; i < number; i += 2) {
-    count++;
-  }
-  return count;
-}
-
-
-console.log(sumOdds(9));   
-console.log(sumOdds(11)); 

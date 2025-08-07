@@ -1,25 +1,19 @@
-// Architectural pattern: MVC, Dependency Injection, MVP
-// MVC = MODEL VIEW CONTROLLER
-// Design pattern: Middleware, Decorator
+console.log("EXECUTED")
 
-import dotenv from 'dotenv';
-dotenv.config();
-import mongoose from "mongoose";
-import app from "./app";
+import dotenv from "dotenv" // dotenv bizga ".env" ni ichidan uqishga imkoniyat hosil qildi
+dotenv.config()
+import moment from "moment"  // ModuleJs da "import" ishlatiladi 
+import mongoose from "mongoose"
+import app from "./app" // chaqirilyapti ( express )
 
-
-// Connect to MongoDB using mongoose
-mongoose
-  .connect(process.env.MONGO_URL as string, {}) // MongoDB connection URL from environment variables
-  .then((data) => {
-    console.log("MongoDB connection succeed"); // Log success message
-    const PORT = process.env.PORT ?? 3003; // Set the server port, default to 3003 if not provided
+mongoose.connect(process.env.MONGO_URL as string, {})
+.then((data) => {
+    console.log("MongoDB connection succeed")
+    const PORT = process.env.PORT ?? 3003;
     app.listen(PORT, function () {
-      console.info(`The server is running successfully on port: ${PORT}`); // Log server status
-      console.info(`Admin project is on http://localhost:${PORT}/admin \n`);
-    });
-  })
-  .catch((err) => console.log("ERROR on connection MongoDB", err)); // Log any connection errors
-
-
-
+        console.info(`The server is running successfully on PORT: ${PORT}`)
+        console.info(`Admin project on http://localhost:${PORT}/admin \n`)
+    })
+}).catch((err) => {
+    console.log("Error on connection MongoDB", err)
+})
