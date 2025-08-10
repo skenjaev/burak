@@ -6,7 +6,7 @@ import jwt from "jsonwebtoken";
 class AuthService {
   private readonly secretToken;
   constructor() {
-    this.secretToken = process.env.SEKRET_TOKEN as string;
+    this.secretToken = process.env.SECRET_TOKEN as string;
   }
 
   public async createToken(payload: Member) {
@@ -14,7 +14,7 @@ class AuthService {
       const duration = `${AUTH_TIMER}h`;
       jwt.sign(
         payload,
-        process.env.SEKRET_TOKEN as string,
+        process.env.SECRET_TOKEN as string,
         {
           expiresIn: duration,
         },

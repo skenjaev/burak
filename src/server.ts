@@ -5,6 +5,8 @@ dotenv.config()
 import moment from "moment"  // ModuleJs da "import" ishlatiladi 
 import mongoose from "mongoose"
 import app from "./app" // chaqirilyapti ( express )
+import { format } from "morgan"
+
 
 mongoose.connect(process.env.MONGO_URL as string, {})
 .then((data) => {
@@ -17,3 +19,4 @@ mongoose.connect(process.env.MONGO_URL as string, {})
 }).catch((err) => {
     console.log("Error on connection MongoDB", err)
 })
+

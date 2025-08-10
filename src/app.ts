@@ -20,6 +20,7 @@ const store = new MongoDBStore({
 const app = express()
 // console.log(__dirname) buyerda dir nimaligini bilishimiz mumkin odiygina folderlarni korsatadi
 app.use(express.static(path.join(__dirname, "public")))  // Middle ware Pattern -- Design patern ga tegishli 
+app.use("/uploads", express.static("./uploads"))
 app.use(express.urlencoded({extended: true})) // Middle ware pattern Traditional API requist ni qabul qiladi
 app.use(express.json()) //Middle ware pattern--json bolib kelgan requist ni object ga ugirib beradi-yani Rest API bolib requist kelgan Data larni Json ni otqizadi yani ruhsat beradi
 app.use(cookieParser())

@@ -233,24 +233,3 @@ Modern Frontend Development (FD)  =>  SPA -- (USER)  => REACT
 //     return musbatRaqam.join("")
 // }
 // console.log(getSecondIndex([-2, -5, 3, 1, 9]))
-
-
-/*V-TASK:
-
-Shunday function yozing, uni string parametri bolsin va stringdagi harf va u harf necha marta takrorlangani sonidan tashkil topgan object qaytarsin.
-MASALAN: countChars("hello") return {h: 1, e: 1, l: 2, o: 1}
-*/
-
-function countChars(str: string): { [key: string]: number } {
-  let result: { [key: string]: number } = {};
-
-  for (let i = 0; i < str.length; i++) {
-    let char = str.charAt(i);
-    if (!result.hasOwnProperty(char)) {
-      result[char] = 0;
-    }
-    result[char]++;
-  }
-  return result;
-}
-console.log(countChars("hello"));
