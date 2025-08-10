@@ -1,20 +1,28 @@
 console.log("Train is started");
 
-function chunkArray(arr: any[], chunkSize: number) {
-  const result: any[] = [];
-  let ourChunk: any[] = [];
 
-  for (let i = 0; i < arr.length; i++) {
-    ourChunk.push(arr[i]);
-    if ((i + 1) % chunkSize === 0 || i === arr.length - 1) {
-      result.push(ourChunk);
-      ourChunk = [];
-    }
-  }
-
-  return result;
+function findIntersection(arr: number[], arr2: number[]){
+  return arr.filter(value => arr2.includes(value))
 }
-console.log(chunkArray([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 3));
+console.log(findIntersection([1, 2, 3], [3, 2, 0]))
+
+
+
+// function chunkArray(arr: any[], chunkSize: number) {
+//   const result: any[] = [];
+//   let ourChunk: any[] = [];
+
+//   for (let i = 0; i < arr.length; i++) {
+//     ourChunk.push(arr[i]);
+//     if ((i + 1) % chunkSize === 0 || i === arr.length - 1) {
+//       result.push(ourChunk);
+//       ourChunk = [];
+//     }
+//   }
+
+//   return result;
+// }
+// console.log(chunkArray([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 3));
 
 // function countChars(str: string) {
 //   let result: { [key: string]: number } = {};
