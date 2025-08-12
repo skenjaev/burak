@@ -466,10 +466,43 @@ ikkala array'da ishtirok etgan o'xshash sonlarni yagona arrayga
 joylab return qilmoqda.
  */
 
-function findIntersection(arr1: number[], arr2: number[]): number[] {
+// function findIntersection(arr1: number[], arr2: number[]): number[] {
  
-    return arr1.filter(value => arr2.includes(value));
-  }
+//     return arr1.filter(value => arr2.includes(value));
+//   }
   
-  console.log(findIntersection([1, 2, 3], [3, 2, 0])); 
+//   console.log(findIntersection([1, 2, 3], [3, 2, 0])); 
+
+
+
+
+
+/*
+X-TASK:
+
+ Shunday function yozing, uni object va string parapetrlari bolsin. Function string parametri object ichida necha marotaba takrorlanganligini qaytarsin (nested object bolsa ham sanasin)
+ MASALAN: countOccurrences({model: 'Bugatti', steer: {model: 'HANKOOK', size: 30}}, 'model') return 2
+
+*/
+
+function countOccurrences(obj: any, key: string): number {
+    let count = 0;
+
+    for (const k in obj) {
+        if (k === key) {
+            count++;
+        }
+
+        if (typeof obj[k] === 'object' && obj[k] !== null) {
+            count += countOccurrences(obj[k], key);
+        }
+    }
+
+    return count;
+}
+
+const example = { model: 'Bugatti', steer: { model: 'HANKOOK', size: 30 }};
+
+
+console.log(countOccurrences(example, "model")); 
   
