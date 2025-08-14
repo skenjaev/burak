@@ -39,7 +39,7 @@ productController.getProduct = async (req: ExtendedRequest, res: Response) => {
   try {
     console.log("getProduct");
     
-    const { id } = req.params;
+    const { id } = req.params;  // destructuring
     const memberId = req.member?._id ?? null;
     const result = await productService.getProduct(memberId, id);
 
