@@ -491,11 +491,33 @@ berilayotgan array tarkibidagi sonlar ichidan faqatgina juft bo'lgan
 sonlarni topib, ularni hisoblab yig'indisini qaytarmoqda.
 */
 
-function sumEvens(input: number[]) {
-    const  sumEvens = input.filter( (num) => num % 2 === 0 )
-             .reduce((sum, num) => sum + num, 0);
+// function sumEvens(input: number[]) {
+//     const  sumEvens = input.filter( (num) => num % 2 === 0 )
+//              .reduce((sum, num) => sum + num, 0);
 
-     return sumEvens;
+//      return sumEvens;
+// }
+
+// console.log(sumEvens([1, 2, 3, 4, 5, 6]));
+
+
+/*
+TASK Y
+
+Shunday function yozing, uni 2'ta array parametri bo'lsin.
+Bu function ikkala arrayda ham ishtirok etgan bir xil
+qiymatlarni yagona arrayga joylab qaytarsin.
+
+MASALAN: findIntersection([1,2,3], [3,2,0]) return [2,3]
+*/
+
+
+function findIntersection(arr1: number[], arr2: number[]): number[] {
+    return arr1.filter(value => arr2.includes(value));
 }
 
-console.log(sumEvens([1, 2, 3, 4, 5, 6]));
+
+console.log(findIntersection([1, 2, 3], [3, 2, 0])); 
+
+console.log(findIntersection([1, 2, 3, 4], [4, 5, 6])); 
+
