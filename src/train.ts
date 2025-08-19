@@ -250,7 +250,7 @@ console.log(palindromCheck("son")); // false
 
 /**
  * 
- * @param book TASK O:
+//  * @param book TASK O:
 
 Shunday function yozing va u har xil qiymatlardan iborat array qabul qilsin.
 Va array ichidagi sonlar yig'indisini hisoblab chiqgan javobni qaytarsin
@@ -512,12 +512,44 @@ MASALAN: findIntersection([1,2,3], [3,2,0]) return [2,3]
 */
 
 
-function findIntersection(arr1: number[], arr2: number[]): number[] {
-    return arr1.filter(value => arr2.includes(value));
+// function findIntersection(arr1: number[], arr2: number[]): number[] {
+//     return arr1.filter(value => arr2.includes(value));
+// }
+
+
+// console.log(findIntersection([1, 2, 3], [3, 2, 0])); 
+
+// console.log(findIntersection([1, 2, 3, 4], [4, 5, 6])); 
+
+
+
+
+/*
+TASK Z
+
+Shunday function yozing. Bu function sonlardan iborat array
+qabul qilsin. Function'ning vazifasi array tarkibidagi juft
+sonlarni topib ularni yig'disini qaytarsin.
+
+MASALAN:
+sumEvens([1, 2, 3]); return 2;
+sumEvens([1, 2, 3, 2]); return 4;
+
+*/
+
+
+function sumEvens(arr: number[]): number {
+    let sum = 0;
+    
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i] % 2 === 0) {
+            sum += arr[i];
+        }
+    }
+    
+    return sum;
 }
 
-
-console.log(findIntersection([1, 2, 3], [3, 2, 0])); 
-
-console.log(findIntersection([1, 2, 3, 4], [4, 5, 6])); 
-
+// Test qilish uchun misollar
+console.log(sumEvens([1, 2, 3])); // 2
+console.log(sumEvens([1, 2, 3, 2])); // 4
