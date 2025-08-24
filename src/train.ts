@@ -568,12 +568,39 @@ MASALAN: celsiusToFahrenheit(0) return 32
 */
 
 
-function celsiusToFahrenheit(celsius: number): number {
-    return (celsius * 9/5) + 32;
+// function celsiusToFahrenheit(celsius: number): number {
+//     return (celsius * 9/5) + 32;
+// }
+
+
+
+
+// console.log(celsiusToFahrenheit(0)); 
+// console.log(celsiusToFahrenheit(100)); 
+
+
+
+
+
+
+/*
+ZD-TASK:
+
+Shunday function yozing, uni number, array va number parametrlari bolsin va berilgan 1-parametr numberga teng indexni array ichidan topib 3-parametrdagi raqam bilan almashtirib yangilangan arrayni qaytarsin
+MASALAN: changeNumberInArray(1, [1,3,7,2], 2) return [1,2,7,2]
+
+*/
+
+
+
+function changeNumberInArray(index: number, arr: number[], newValue: number): number[] {
+    if (index >= 0 && index < arr.length) {
+        arr[index] = newValue;
+    }
+    return arr;
 }
 
 
 
-
-console.log(celsiusToFahrenheit(0)); 
-console.log(celsiusToFahrenheit(100)); 
+console.log(changeNumberInArray(1, [1, 3, 7, 2], 2));
+console.log(changeNumberInArray(0, [5, 6, 7, 8], 10));
