@@ -1,16 +1,16 @@
-// ZE-TASK:
-function removeDuplicate(input: string): string {
-   let result = "";
-   for (let char of input) {
-     if (!result.includes(char)) {
-       result += char;
-     }
-   }
-   return result;
- }
+// // ZE-TASK:
+// function removeDuplicate(input: string): string {
+//    let result = "";
+//    for (let char of input) {
+//      if (!result.includes(char)) {
+//        result += char;
+//      }
+//    }
+//    return result;
+//  }
 
- console.log(removeDuplicate("stringg")); 
- console.log(removeDuplicate("memberService")); 
+//  console.log(removeDuplicate("stringg")); 
+//  console.log(removeDuplicate("memberService")); 
 
 // ZD-TASK:
 // function changeNumberInArray(index: number, arr: number[], newValue: number): number[] {
@@ -412,3 +412,22 @@ function removeDuplicate(input: string): string {
    Backend validation
    Database validation
 */
+
+
+
+/*
+ZG-TASK:
+
+Shunday function yozing, u berilgan string parametrni snake casega otkazib qaytarsin. 
+MASALAN: capitalizeWords('name should be a string') return 'name_should_be_a_string'
+
+*/
+
+
+
+function capitalizeWords(str: string): string {
+   return str.split(" ").join("_");
+}
+
+console.log(capitalizeWords('name should be a string'));
+console.log(capitalizeWords('burak ozbek'));
