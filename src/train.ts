@@ -425,9 +425,35 @@ MASALAN: capitalizeWords('name should be a string') return 'name_should_be_a_str
 
 
 
-function capitalizeWords(str: string): string {
-   return str.split(" ").join("_");
+// function capitalizeWords(str: string): string {
+//    return str.split(" ").join("_");
+// }
+
+// console.log(capitalizeWords('name should be a string'));
+// console.log(capitalizeWords('burak ozbek'));
+
+
+
+/*
+ZH-TASK:
+
+Shunday function yozing, u berilgan array parametrni ichidagi eng katta raqamgacha tushib qolgan raqamlarni bir arrayda qaytarsin. 
+MASALAN: findDisappearedNumbers([1, 3, 4, 7]) return [2, 5, 6]
+*/
+
+
+function findDisappearedNumbers(arr: number[]): number[] {
+   const result: number[] = [];
+   const max = Math.max(...arr);
+
+   for (let i = 1; i < max; i++) {
+      if (!arr.includes(i)) {
+         result.push(i);
+      }
+   }
+
+   return result;
 }
 
-console.log(capitalizeWords('name should be a string'));
-console.log(capitalizeWords('burak ozbek'));
+console.log(findDisappearedNumbers([1, 3, 4, 7]));
+console.log(findDisappearedNumbers([2, 3, 5, 9]));
