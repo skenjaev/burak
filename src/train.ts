@@ -442,18 +442,45 @@ MASALAN: findDisappearedNumbers([1, 3, 4, 7]) return [2, 5, 6]
 */
 
 
-function findDisappearedNumbers(arr: number[]): number[] {
-   const result: number[] = [];
-   const max = Math.max(...arr);
+// function findDisappearedNumbers(arr: number[]): number[] {
+//    const result: number[] = [];
+//    const max = Math.max(...arr);
 
-   for (let i = 1; i < max; i++) {
-      if (!arr.includes(i)) {
-         result.push(i);
-      }
-   }
+//    for (let i = 1; i < max; i++) {
+//       if (!arr.includes(i)) {
+//          result.push(i);
+//       }
+//    }
 
-   return result;
+//    return result;
+// }
+
+// console.log(findDisappearedNumbers([1, 3, 4, 7]));
+// console.log(findDisappearedNumbers([2, 3, 5, 9]));
+
+
+
+
+
+
+/*
+
+TASK ZI
+
+Shundan function yozing, bu function 3 soniydan so'ng
+"Hello World!" so'zini qaytarsin.
+
+MASALAN: delayHelloWorld("Hello World"); return "Hello World";
+*/
+
+
+function delayHelloWorld(str: string): Promise<string> {
+   return new Promise((resolve) => {
+      setTimeout(() => {
+         resolve(str);
+      }, 3000);
+   });
 }
 
-console.log(findDisappearedNumbers([1, 3, 4, 7]));
-console.log(findDisappearedNumbers([2, 3, 5, 9]));
+delayHelloWorld("Hello World!").then((message) => console.log(message));
+delayHelloWorld("Burak Ozbek").then((message) => console.log(message)); 
