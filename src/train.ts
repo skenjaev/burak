@@ -495,22 +495,45 @@ MASALAN: reduceNestedArray([1, [1, 2, [4]]]) return 8
 
 */
 
-function reduceNestedArray(arr: any[]): number {
-   let total = 0;
+// function reduceNestedArray(arr: any[]): number {
+//    let total = 0;
 
-   function sumArray(array: any[]) {
-      for (const item of array) {
-         if (Array.isArray(item)) {
-            sumArray(item);
-         } else if (typeof item === "number") {
-            total += item;
-         }
-      }
-   }
+//    function sumArray(array: any[]) {
+//       for (const item of array) {
+//          if (Array.isArray(item)) {
+//             sumArray(item);
+//          } else if (typeof item === "number") {
+//             total += item;
+//          }
+//       }
+//    }
 
-   sumArray(arr);
-   return total;
+//    sumArray(arr);
+//    return total;
+// }
+
+// console.log(reduceNestedArray([1, [1, 2, [4]]]));
+// console.log(reduceNestedArray([2, [3, 4, [5, 6]]]));
+
+
+
+/*
+
+TASK ZL:
+
+Shunday function yozing, va bu function parametr
+sifatida raqamlarni qabul qilsin. Bu function qabul qilingan
+raqamlarni orqasiga o'girib qaytarsin
+
+MASALAN: reverseInteger(123456789); return 987654321;
+
+*/
+
+
+function reverseInteger(num: number): number {
+   const reversedString = num.toString().split("").reverse().join("");
+   return parseInt(reversedString, 10);
 }
 
-console.log(reduceNestedArray([1, [1, 2, [4]]]));
-console.log(reduceNestedArray([2, [3, 4, [5, 6]]]));
+console.log(reverseInteger(123456789));
+console.log(reverseInteger(987654321));
