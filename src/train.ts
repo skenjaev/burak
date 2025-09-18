@@ -530,10 +530,35 @@ MASALAN: reverseInteger(123456789); return 987654321;
 */
 
 
-function reverseInteger(num: number): number {
-   const reversedString = num.toString().split("").reverse().join("");
-   return parseInt(reversedString, 10);
+// function reverseInteger(num: number): number {
+//    const reversedString = num.toString().split("").reverse().join("");
+//    return parseInt(reversedString, 10);
+// }
+
+// console.log(reverseInteger(123456789));
+// console.log(reverseInteger(987654321));
+
+
+
+/*
+
+ZM-TASK:
+
+Shunday function yozing, u function parametrda berilgan sonni har bir raqamini kvadratiga ogirib qaytarsin.
+MASALAN: squareDigits(9119) return "811181"
+*/
+
+
+function squareDigits(num: number): string {
+   return num
+   .toString()
+   .split("")
+   .map((digit) => {
+      const n = parseInt(digit, 10);
+      return (n * n).toString();
+   })
+   .join("");
 }
 
-console.log(reverseInteger(123456789));
-console.log(reverseInteger(987654321));
+console.log(squareDigits(9119));
+console.log(squareDigits(1234));
