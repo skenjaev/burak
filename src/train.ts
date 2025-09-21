@@ -474,16 +474,16 @@ MASALAN: delayHelloWorld("Hello World"); return "Hello World";
 */
 
 
-function delayHelloWorld(str: string): Promise<string> {
-   return new Promise((resolve) => {
-      setTimeout(() => {
-         resolve(str);
-      }, 3000);
-   });
-}
+// function delayHelloWorld(str: string): Promise<string> {
+//    return new Promise((resolve) => {
+//       setTimeout(() => {
+//          resolve(str);
+//       }, 3000);
+//    });
+// }
 
-delayHelloWorld("Hello World!").then((message) => console.log(message));
-delayHelloWorld("Burak Ozbek").then((message) => console.log(message)); 
+// delayHelloWorld("Hello World!").then((message) => console.log(message));
+// delayHelloWorld("Burak Ozbek").then((message) => console.log(message)); 
 
 
 
@@ -549,16 +549,37 @@ MASALAN: squareDigits(9119) return "811181"
 */
 
 
-function squareDigits(num: number): string {
-   return num
-   .toString()
-   .split("")
-   .map((digit) => {
-      const n = parseInt(digit, 10);
-      return (n * n).toString();
-   })
-   .join("");
+// function squareDigits(num: number): string {
+//    return num
+//    .toString()
+//    .split("")
+//    .map((digit) => {
+//       const n = parseInt(digit, 10);
+//       return (n * n).toString();
+//    })
+//    .join("");
+// }
+
+// console.log(squareDigits(9119));
+// console.log(squareDigits(1234));
+
+
+
+/*
+
+ZN-TASK:
+
+Shunday function yozing, uni array va number parametri bolsin. Ikkinchi parametrda berilgan raqamli indexgacha arrayni orqasiga ogirib qaytarsin.
+MASALAN: rotateArray([1, 2, 3, 4, 5, 6], 3) return [5, 6, 1, 2, 3, 4]
+
+*/
+
+
+function rotateArray(arr: number[], index: number): number[] {
+   const len = arr.length;
+   const rotIndex = index % len;
+   return arr.slice(-rotIndex).concat(arr.slice(0, len - rotIndex));
 }
 
-console.log(squareDigits(9119));
-console.log(squareDigits(1234));
+console.log(rotateArray([1, 2, 3, 4, 5, 6], 3));
+console.log(rotateArray([10, 20, 30, 40, 50], 2));
