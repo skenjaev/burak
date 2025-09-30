@@ -598,25 +598,25 @@ MASALAN: areParenthesesBalanced("string()ichida(qavslar)soni()balansda") return 
 
 
 
-// function areParenthesesBalanced(str: string): boolean {
-//    let balance = 0;
+function areParenthesesBalanced(str: string): boolean {
+   let balance = 0;
 
-//    for (const char of str) {
-//       if (char === "(") {
-//          balance++;
-//       } else if (char === ")") {
-//          balance--;
-//          if (balance < 0) {
-//             return false;
-//          }
-//       }
-//    }
+   for (const char of str) {
+      if (char === "(") {
+         balance++;
+      } else if (char === ")") {
+         balance--;
+         if (balance < 0) {
+            return false;
+         }
+      }
+   }
 
-//    return balance === 0;
-// }
+   return balance === 0;
+}
 
-// console.log(areParenthesesBalanced("string()ichida(qavslar)soni()balansda"));
-// console.log(areParenthesesBalanced("string()ichida(qavslar)soni()balansda)"));
+console.log(areParenthesesBalanced("string()ichida(qavslar)soni()balansda"));
+console.log(areParenthesesBalanced("string()ichida(qavslar)soni()balansda)"));
 
 
 
@@ -628,23 +628,23 @@ MASALAN: countNumberAndLetters(“string152%\¥”) return {number:3, letter:6}
 
 */
 
-// function countNumberAndLetters(str: string): { number: number; letter: number } {
-//    let numberCount = 0;
-//    let letterCount = 0;
+function countNumberAndLetters(str: string): { number: number; letter: number } {
+   let numberCount = 0;
+   let letterCount = 0;
 
-//    for (const char of str) {
-//       if (char >= "0" && char <= "9") {
-//          numberCount++;
-//       } else if ((char >= "a" && char <= "z") || (char >= "A" && char <= "Z")) {
-//          letterCount++;
-//       }
-//    }
+   for (const char of str) {
+      if (char >= "0" && char <= "9") {
+         numberCount++;
+      } else if ((char >= "a" && char <= "z") || (char >= "A" && char <= "Z")) {
+         letterCount++;
+      }
+   }
 
-//    return { number: numberCount, letter: letterCount };
-// }
+   return { number: numberCount, letter: letterCount };
+}
 
-// console.log(countNumberAndLetters("string152%\\¥"));
-// console.log(countNumberAndLetters("proccessSignup2023!@#"));
+console.log(countNumberAndLetters("string152%\\¥"));
+console.log(countNumberAndLetters("proccessSignup2023!@#"));
 
 
 
