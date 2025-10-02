@@ -682,3 +682,37 @@ function findDuplicates(arr: number[]): number[] {
 
 console.log(findDuplicates([1, 2, 3, 4, 5, 4, 3, 4]));
 console.log(findDuplicates([5, 6, 7, 8, 7, 6, 5, 9]));
+
+
+
+
+
+/*
+TASK ZR:
+
+Shunday function yozing, bu function parametrdagi array ichida
+bir marotaba takrorlangan element'ni qaytarsin
+
+MASALAN: singleNumber([4, 2, 1, 2, 1]); return 4;
+*/
+
+
+
+function singleNumber(arr: number[]): number | null {
+   const counts: { [key: number]: number } = {};
+
+   for (const num of arr) {
+      counts[num] = (counts[num] || 0) + 1;
+   }
+
+   for (const num in counts) {
+      if (counts[num] === 1) {
+         return Number(num);
+      }
+   }
+
+   return null;
+}
+
+console.log(singleNumber([4, 2, 1, 2, 1]));
+console.log(singleNumber([5, 6, 7, 5, 6]));
