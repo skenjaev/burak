@@ -598,25 +598,25 @@ MASALAN: areParenthesesBalanced("string()ichida(qavslar)soni()balansda") return 
 
 
 
-function areParenthesesBalanced(str: string): boolean {
-   let balance = 0;
+// function areParenthesesBalanced(str: string): boolean {
+//    let balance = 0;
 
-   for (const char of str) {
-      if (char === "(") {
-         balance++;
-      } else if (char === ")") {
-         balance--;
-         if (balance < 0) {
-            return false;
-         }
-      }
-   }
+//    for (const char of str) {
+//       if (char === "(") {
+//          balance++;
+//       } else if (char === ")") {
+//          balance--;
+//          if (balance < 0) {
+//             return false;
+//          }
+//       }
+//    }
 
-   return balance === 0;
-}
+//    return balance === 0;
+// }
 
-console.log(areParenthesesBalanced("string()ichida(qavslar)soni()balansda"));
-console.log(areParenthesesBalanced("string()ichida(qavslar)soni()balansda)"));
+// console.log(areParenthesesBalanced("string()ichida(qavslar)soni()balansda"));
+// console.log(areParenthesesBalanced("string()ichida(qavslar)soni()balansda)"));
 
 
 
@@ -628,23 +628,23 @@ MASALAN: countNumberAndLetters(“string152%\¥”) return {number:3, letter:6}
 
 */
 
-function countNumberAndLetters(str: string): { number: number; letter: number } {
-   let numberCount = 0;
-   let letterCount = 0;
+// function countNumberAndLetters(str: string): { number: number; letter: number } {
+//    let numberCount = 0;
+//    let letterCount = 0;
 
-   for (const char of str) {
-      if (char >= "0" && char <= "9") {
-         numberCount++;
-      } else if ((char >= "a" && char <= "z") || (char >= "A" && char <= "Z")) {
-         letterCount++;
-      }
-   }
+//    for (const char of str) {
+//       if (char >= "0" && char <= "9") {
+//          numberCount++;
+//       } else if ((char >= "a" && char <= "z") || (char >= "A" && char <= "Z")) {
+//          letterCount++;
+//       }
+//    }
 
-   return { number: numberCount, letter: letterCount };
-}
+//    return { number: numberCount, letter: letterCount };
+// }
 
-console.log(countNumberAndLetters("string152%\\¥"));
-console.log(countNumberAndLetters("proccessSignup2023!@#"));
+// console.log(countNumberAndLetters("string152%\\¥"));
+// console.log(countNumberAndLetters("proccessSignup2023!@#"));
 
 
 
@@ -663,25 +663,25 @@ MASALAN: findDuplicates([1,2,3,4,5,4,3,4]); return [3, 4];
 
 
 
-function findDuplicates(arr: number[]): number[] {
-   const counts: { [key: number]: number } = {};
-   const result: number[] = [];
+// function findDuplicates(arr: number[]): number[] {
+//    const counts: { [key: number]: number } = {};
+//    const result: number[] = [];
 
-   for (const num of arr) {
-      counts[num] = (counts[num] || 0) + 1;
-   }
+//    for (const num of arr) {
+//       counts[num] = (counts[num] || 0) + 1;
+//    }
 
-   for (const num in counts) {
-      if (counts[num] > 1) {
-         result.push(Number(num));
-      }
-   }
+//    for (const num in counts) {
+//       if (counts[num] > 1) {
+//          result.push(Number(num));
+//       }
+//    }
 
-   return result;
-}
+//    return result;
+// }
 
-console.log(findDuplicates([1, 2, 3, 4, 5, 4, 3, 4]));
-console.log(findDuplicates([5, 6, 7, 8, 7, 6, 5, 9]));
+// console.log(findDuplicates([1, 2, 3, 4, 5, 4, 3, 4]));
+// console.log(findDuplicates([5, 6, 7, 8, 7, 6, 5, 9]));
 
 
 
@@ -698,21 +698,52 @@ MASALAN: singleNumber([4, 2, 1, 2, 1]); return 4;
 
 
 
-function singleNumber(arr: number[]): number | null {
-   const counts: { [key: number]: number } = {};
+// function singleNumber(arr: number[]): number | null {
+//    const counts: { [key: number]: number } = {};
 
-   for (const num of arr) {
-      counts[num] = (counts[num] || 0) + 1;
+//    for (const num of arr) {
+//       counts[num] = (counts[num] || 0) + 1;
+//    }
+
+//    for (const num in counts) {
+//       if (counts[num] === 1) {
+//          return Number(num);
+//       }
+//    }
+
+//    return null;
+// }
+
+// console.log(singleNumber([4, 2, 1, 2, 1]));
+// console.log(singleNumber([5, 6, 7, 5, 6]));
+
+
+
+
+/*
+ZS-TASK:
+
+Shunday function yozing, u parametridagi string ichida 1 martadan ortiq qaytarilmagan birinchi harf indeksini qaytarsin.
+MASALAN: firstUniqueCharIndex(“stamp”) return 0
+
+*/
+
+
+function firstUniqueCharIndex(str: string): number {
+   const counts: { [key: string]: number } = {};
+
+   for (const char of str) {
+      counts[char] = (counts[char] || 0) + 1;
    }
 
-   for (const num in counts) {
-      if (counts[num] === 1) {
-         return Number(num);
+   for (let i = 0; i < str.length; i++) {
+      if (counts[str[i]] === 1) {
+         return i;
       }
    }
 
-   return null;
+   return -1;
 }
 
-console.log(singleNumber([4, 2, 1, 2, 1]));
-console.log(singleNumber([5, 6, 7, 5, 6]));
+console.log(firstUniqueCharIndex("stamp"));
+console.log(firstUniqueCharIndex("swiss"));
